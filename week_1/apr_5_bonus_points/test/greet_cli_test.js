@@ -4,7 +4,7 @@ var greetCli = require(__dirname + '/../bin/greet');
 describe('greet cli', () => {
   before(() => {
     this.process_backup = process.argv;
-    process.argv = [,,'test'];
+    process.argv = [null,null,'test'];
   });
 
   after(() => {

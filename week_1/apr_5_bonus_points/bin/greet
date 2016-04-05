@@ -6,4 +6,4 @@ var greetCli = module.exports = function() {
   return greet(process.argv[2]);
 };
 
-console.log(greetCli());
+process.stdout.write(greetCli() + '\n');
