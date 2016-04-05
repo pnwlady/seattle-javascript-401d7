@@ -1,4 +1,5 @@
 var expect = require('chai').expect;
+var greetCli = require(__dirname + '/../bin/greet');
 
 describe('greet cli', () => {
   before(() => {
@@ -11,8 +12,7 @@ describe('greet cli', () => {
   });
   
   it('should greet test', () => {
-    var greetCliResult = require(__dirname + '/../bin/greet');
-    expect(greetCliResult).to.eql('hello test');
+    expect(greetCli()).to.eql('hello test');
   });
 
   describe('with no arguments', () => {
@@ -21,9 +21,7 @@ describe('greet cli', () => {
     });
 
     it('should greet the world', () => {
-      debugger;
-      var greetCliResult = require(__dirname + '/../bin/greet');
-      expect(greetCliResult).to.eql('hello world');
+      expect(greetCli()).to.eql('hello world');
     });
   });
 });
