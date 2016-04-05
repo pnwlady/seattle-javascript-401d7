@@ -7,7 +7,6 @@ console.log(frog());
 console.log(__dirname);
 console.log(__filename);
 
-debugger;
 console.log(frog2.ribbit());
 
 const froggy = new Frog3();

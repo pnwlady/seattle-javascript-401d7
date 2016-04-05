@@ -1,5 +1,5 @@
 module.exports = function() {
-  return "ribbit"
+  return 'ribbit';
 };
 
-console.log("frogs say ribbit");
+console.log('frogs say ribbit');

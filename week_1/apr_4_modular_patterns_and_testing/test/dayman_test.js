@@ -17,7 +17,6 @@ describe('the dayman', () => {
     expect(dayman.masterOf.indexOf('friendship for everyone')).to.not.eql(-1);
   });
   it('should have an alias', () => {
-
     expect(dayman.alias).to.eql('Denis');
   });
   it('should be able to make the dayman sound', () => {

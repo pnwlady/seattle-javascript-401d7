@@ -1,6 +1,5 @@
 exports.ribbit = function() {
-  return "ribbit 2";
+  return 'ribbit 2';
 };
 
-console.log("hello from frog2.js");
-s
+console.log('hello from frog2.js');
