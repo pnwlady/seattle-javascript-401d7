@@ -1,0 +1,16 @@
+{
+  "name": "apr_7_async_assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ee_refactor.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
