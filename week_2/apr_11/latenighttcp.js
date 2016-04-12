@@ -7,5 +7,5 @@ const server = net.createServer((socket) => {
 
 
 server.listen(3000, () => {
-  process.stdout.write('server up on 3000\n')
-})
+  process.stdout.write('server up on 3000\n');
+});
