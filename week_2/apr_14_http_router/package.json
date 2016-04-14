@@ -1,11 +1,8 @@
 {
-  "name": "apr_14_more_promises",
+  "name": "apr_14_http_router",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "bin": {
-    "upr": "./bin/upr"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
