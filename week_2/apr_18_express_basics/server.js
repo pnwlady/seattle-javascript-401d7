@@ -5,7 +5,7 @@ app.get('/something', (req, res) => {
 });
 
 app.get('/*', (req,res) => {
-  res.status(200).json({msg: 'wow such routes'})
+  res.status(200).json({msg: 'wow such routes'});
 });
 
 app.get('/greet/:name', (req, res) => {
