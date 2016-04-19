@@ -1,11 +1,20 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 
-app.get('/someroute', (req, res, next) => {
-  req.name = 'toasty';
+var routerOne = express.Router();
+
+routerOne.use((req, res, next) => {
+  console.log('hello from router middleware');
   next();
-  console.log('hello from middleware');
-},
-(req, res, next) => {
-  console.log('hello from finally');
-  res.send('hello ' + req.name);
-}).listen(3000);
+});
+
+routerOne.get('/someroute', (req, res) => {
+  res.send('done some route');
+});
+
+routerOne.post('/anotherroute', (req, res) => {
+  res.send('hello from post');
+});
+
+app.use('/api', routerOne);
+app.listen(3000, () => console.log('server up'));
