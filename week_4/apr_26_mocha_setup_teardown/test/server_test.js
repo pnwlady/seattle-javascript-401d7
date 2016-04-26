@@ -4,24 +4,15 @@ chai.use(http);
 
 const expect = chai.expect;
 const mongoose = require('mongoose');
-const server = require(__dirname + '/../server');
+const app = require(__dirname + '/../_server');
 
 describe('our super awesome server', () => {
   before((done) => {
-    mongoose.disconnect(() => {
-      done();
-    });
-  });
-
-  before((done) => {
-    if (!mongoose.connections[0].host) {
-      mongoose.connect('mongodb://localhost/test_server');
-    }
-    server.listen(3000, done);
+    this.server = app(3000, 'mongodb://localhost/test_server', done);
   });
 
   after(() => {
-    server.close();
+    this.server.close();
     mongoose.disconnect();
   });
 

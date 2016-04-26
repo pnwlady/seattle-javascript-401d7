@@ -8,5 +8,5 @@ app.get('*', (req, res) => {
 
 module.exports = exports = function(port, mongoConnString, cb) {
   mongoose.connect(mongoConnString);
-  app.listen(port, cb);
+  return app.listen(port, cb);
 };

@@ -4,29 +4,20 @@ chai.use(http);
 
 const expect = chai.expect;
 const mongoose = require('mongoose');
-const server = require(__dirname + '/../server');
+const app = require(__dirname + '/../_server');
 
 describe('our super awesome server', () => {
   before((done) => {
-    mongoose.disconnect(() => {
-      done();
-    });
-  });
-
-  before((done) => {
-    if (!mongoose.connections[0].host) {
-      mongoose.connect('mongodb://localhost/test_server');
-    }
-    (!server._handle) ? server.listen(3000, done) : done();
+    this.server = app(5000, 'mongodb://localhost/test_server', done);
   });
 
   after(() => {
-    server.close();
+    this.server.close();
     mongoose.disconnect();
   });
 
   it('should send back some text', (done) => {
-    chai.request('localhost:3000')
+    chai.request('localhost:5000')
       .get('/anyroute/itdoesnnotmatter/awesome/cowabunga')
       .end((err, res) => {
         expect(err).to.eql(null);
