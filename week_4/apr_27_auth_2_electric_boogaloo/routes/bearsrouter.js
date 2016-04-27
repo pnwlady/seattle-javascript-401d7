@@ -1,11 +1,13 @@
 const Router = require('express').Router;
 const Bear = require(__dirname + '/../models/bear');
 const bodyParser = require('body-parser').json();
-const serverErrorHandler = require(__dirname +'/../lib/error_handler');
+const serverErrorHandler = require(__dirname + '/../lib/error_handler');
+const jwtAuth = require(__dirname + '/../lib/jwt_auth');
 var bearsRouter = module.exports = Router();
 
-bearsRouter.post('/bears', bodyParser, (req, res) => {
+bearsRouter.post('/bears', jwtAuth, bodyParser, (req, res) => {
   var newBear = new Bear(req.body);
+  newBear.wranglerId = req.user._id;
   newBear.save((err, data) => {
     if (err) return serverErrorHandler(err, res);
 
@@ -13,8 +15,8 @@ bearsRouter.post('/bears', bodyParser, (req, res) => {
   });
 });
 
-bearsRouter.get('/bears', (req, res) => {
-  Bear.find(null, (err, data) => {
+bearsRouter.get('/bears', jwtAuth, (req, res) => {
+  Bear.find({wranglerId: req.user._id}, (err, data) => {
     if (err) return serverErrorHandler(err, res);
 
     res.status(200).json(data);

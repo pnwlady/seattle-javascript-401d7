@@ -15,11 +15,14 @@ router.post('/signup', jsonParser, (req, res) => {
   newUser.generateHash(password);
   password = null;
 
-  newUser.save((err, data) => {
+  newUser.save((err, user) => {
     if (err) return res.status(500).json({msg: 'could not create user'});
 
-    // TODO (XXX) send a jwt on successful user creation
-    res.json({msg: 'user created!'});
+    user.generateToken(function(err, token) {
+      if (err) return res.status(500).json({msg: 'could not generate token, sign in later'});
+
+      res.json({token});
+    });
   });
 });
 
@@ -31,6 +34,10 @@ router.get('/signin', basicHTTP, (req, res) => {
 
     if (!user.compareHash(req.auth.password)) return res.status(500).json({msg: 'authenticat seys no'});
 
-    res.json({msg: 'authenticat seys yes'});
+    user.generateToken(function(err, token) {
+      if (err) return res.status(500).json({msg: 'could not generate token, sign in later'});
+
+      res.json({token});
+    });
   });
 });
