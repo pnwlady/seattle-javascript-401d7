@@ -6,35 +6,42 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-ng-app="demoApp">
-  <main data-ng-controller="SomeController">
-    <h1 id="greeting">{{greeting}}</h1>
+  <main data-ng-controller="BearsController as bearsctrl" data-ng-init="bearsctrl.getAll()">
+    <form data-ng-submit="bearsctrl.createBear()">
+      <label for="name">Name</label>
+      <input type="text" name="name" data-ng-model="bearsctrl.newBear.name">
 
-    <input type="text" data-ng-model="greeting">
-    <button data-ng-click="alertGreeting()">Click This Button!</button>
+      <label for="variety">Variety</label>
+      <input type="text" name="variety" data-ng-model="bearsctrl.newBear.variety">
 
-    <section data-ng-controller="AnotherController">
-      <h1>{{greeting}}</h1>
+      <label for="fishPreference">Fish Preference</label>
+      <input type="text" name="fishPreference" data-ng-model="bearsctrl.newBear.fishPreference" placeholder="salmons">
 
-      <input type="text" data-ng-model="greeting">
-      <button data-ng-click="update()">Update!</button>
-    </section>
+      <button type="submit">Create Bear</button>
+    </form>
+
+    <ul id="bearlist">
+    	<li data-ng-repeat="bear in bearsctrl.bears">
+        <span data-ng-if="!bear.editing">{{bear.name}} is a {{bear.variety || 'bear'}} who likes {{bear.fishPreference}}</span>
+        <form data-ng-if="bear.editing" data-ng-submit="bearsctrl.updateBear(bear)">
+          <label for="name">Name</label>
+          <input type="text" name="name" data-ng-model="bear.name">
+
+          <label for="variety">Variety</label>
+          <input type="text" name="variety" data-ng-model="bear.variety">
+
+          <label for="fishPreference">Fish Preference</label>
+          <input type="text" name="fishPreference" data-ng-model="bear.fishPreference" placeholder="salmons">
+
+          <button type="submit">Update Bear</button>
+          <button data-ng-click="bear.editing = false">Cancel</button>
+        </form>
+
+        <button data-ng-if="!bear.editing" data-ng-click="bear.editing = true">Edit</button>
+        <button data-ng-click="bearsctrl.removeBear(bear)">Murder This Bear!</button>
+      </li>
+    </ul>
   </main>
-
-  <div data-ng-controller="BlergController as blerg">
-    <h1>Outside: {{blerg.greeting}}</h1>
-
-    <input type="text" data-ng-model="blerg.greeting">
-
-    <div data-ng-controller="BlergController as blerg2">
-      <h1>One: {{blerg.greeting}}</h1>
-      <h2>Two: {{blerg2.greeting}}</h2>
-
-      <label>one</label>
-      <input type="text" data-ng-model="blerg.greeting">
-      <label>two</label>
-      <input type="text" data-ng-model="blerg2.greeting">
-    </div>
-  </div>
   <script src="./bundle.js"></script>
 </body>
 </html>
