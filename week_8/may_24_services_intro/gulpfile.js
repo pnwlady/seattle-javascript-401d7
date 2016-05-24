@@ -12,6 +12,18 @@ gulp.task('webpack:dev', () => {
     .pipe(gulp.dest('./build'));
 });
 
+gulp.task('webpack:test', () => {
+  gulp.src('test/unit/entry.js')
+    .pipe(webpack({
+      devtool: 'source-map',
+      output: {
+        filename: 'bundle.js'
+      }
+    }))
+    .pipe(gulp.dest('./test/unit'));
+});
+
+
 gulp.task('static:dev', () => {
   gulp.src('app/**/*.html')
     .pipe(gulp.dest('./build'));

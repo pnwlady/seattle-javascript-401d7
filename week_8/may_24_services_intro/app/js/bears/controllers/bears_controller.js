@@ -1,36 +1,37 @@
-var handleError = require('../../lib').handleError;
 var baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
-  app.controller('BearsController', ['$http', function($http) {
+  app.controller('BearsController', ['$http', 'cfHandleError', function($http, cfHandleError) {
     this.bears = [];
-    this.getAll = () => {
+    this.errors = [];
+    this.getAll = function() {
       $http.get(baseUrl + '/api/bears')
         .then((res) => {
           this.bears = res.data;
-        }, handleError.bind(this));
-    };
+        }, cfHandleError(this.errors, 'could not retrieve bears'));
+    }.bind(this);
 
-    this.createBear = () => {
+    this.createBear = function() {
+      var bearName = this.newBear.name;
       $http.post(baseUrl + '/api/bears', this.newBear)
         .then((res) => {
           this.bears.push(res.data);
           this.newBear = null;
-        }, handleError.bind(this));
-    };
+        }, cfHandleError(this.errors, 'could not save bear ' + bearName));
+    }.bind(this);
 
-    this.updateBear = (bear) => {
+    this.updateBear = function(bear){
       $http.put(baseUrl + '/api/bears/' + bear._id, bear)
         .then(() => {
           bear.editing = false;
-        }, handleError.bind(this));
-    };
+        }, cfHandleError(this.errors, 'could not update bear ' + bear.name));
+    }.bind(this);
 
-    this.removeBear = (bear) => {
+    this.removeBear = function(bear) { 
       $http.delete(baseUrl + '/api/bears/' + bear._id)
         .then(() => {
           this.bears.splice(this.bears.indexOf(bear), 1);
-        }, handleError.bind(this));
-    };
+        }, cfHandleError(this.errors, 'could not murder bear ' + bear.name));
+    }.bind(this);
   }]);
 };
