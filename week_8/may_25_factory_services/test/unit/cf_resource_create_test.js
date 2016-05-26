@@ -9,23 +9,17 @@ describe('cfResourceCreate', function () {
     expect(typeof cfResource).toBe('function');
   }));
 
-  it('should add to the test array', angular.mock.inject(function(cfResource) {
-    var baseUrl = 'localhost:8000'
-    testArray = [];
-    errorTest = [];
+  it('should add to the test array', angular.mock.inject(function(cfResource, $httpBackend) {
+    $httpBackend.expectPOST('localhost:8000/api/bears', {name: 'test bear'}).respond(200, {name: 'another test', _id: 0});
+    var baseUrl = 'localhost:8000/api/bears';
+    var testArray = [];
+    var errorTest = [];
     var testRemote = new cfResource(testArray, errorTest, baseUrl);
-    var createTest = function(newTestItem) {
-      testRemote.create(this.newTestItem)
-        .then(() => {
-          console.log('function called')
-          this.newTestItem = null;
-        });
-    }.bind(this);
-
-    createTest({ name: 'testBear' });
-    expect(typeof testRemote).toBe('object');
+    testRemote.create({name: 'test bear'});
+    $httpBackend.flush();
+    var baseUrl = 'localhost:8000';
     expect(testArray.length).toBe(1);
-    expect(errorTest.length).toBe(1);
+    expect(errorTest.length).toBe(0);
+    expect(testArray[0].name).toBe('another test');
   }));
-
 });

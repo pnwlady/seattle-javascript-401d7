@@ -4,3 +4,4 @@ require('../../app/js/entry');
 
 require('./cf_handle_error_test');
 require('./cf_resource_create_test');
+require('./cf_resource_update_test');
