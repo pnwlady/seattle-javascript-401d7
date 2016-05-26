@@ -19,7 +19,3 @@ demoApp.controller('CountCtrl', ['cfStore', function(cfStore) {
     this.getCount = cfStore.getCount.bind(cfStore);
     this.add = cfStore.addCount.bind(cfStore);
 }]);
-
-demoApp.controller('AnotherController', function() {
-  this.count = 0;
-});  
