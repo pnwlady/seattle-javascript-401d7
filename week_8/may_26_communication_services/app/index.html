@@ -8,11 +8,11 @@
   <section data-ng-controller="CountCtrl as one">
     <h1>{{one.counter.count}}</h1>
     <button data-ng-click="one.add()">Add One to One ah ah ah!</button>
+  </section>
 
-    <section data-ng-if="(one.counter.count % 2)" data-ng-controller="AnotherController as ac">
-      <h1>{{ac.count}}</h1>
-      <button data-ng-click="ac.count = ac.count + 1">Add One to Two aah ah ah!</button>
-    </section>
+  <section data-ng-controller="CountCtrl as two">
+    <h1>{{two.counter.count}}</h1>
+    <button data-ng-click="two.add()">Add One to One ah ah ah!</button>
   </section>
 
 
