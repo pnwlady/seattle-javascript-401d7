@@ -14,6 +14,7 @@ demoApp.config(['$routeProvider', function($rp) {
     })
     // AUTH_EXP: how do the signin/up routes differ and what is their relationship
     // with one another
+    // Even though the signin and signup templates are the same the routes differ in that they use their own controllers, the signin controller authenticates with a GET req, and the signup controller POSTS newUser and token. 
     .when('/signup', {
       templateUrl: 'templates/auth/views/auth_view.html',
       controller: 'SignUpController',
